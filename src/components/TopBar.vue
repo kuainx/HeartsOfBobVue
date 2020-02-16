@@ -13,7 +13,7 @@ export default {
 	name: 'TopBar',
 	data: function () {
 		return {
-			id: 956
+
 		}
 	},
 	components: {

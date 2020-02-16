@@ -15,10 +15,7 @@ export default {
 	},
 	data: function () {
 		return {
-			base: {
-				stability: 23,
-				studySupport: 46
-			}
+
 		}
 	}
 }
