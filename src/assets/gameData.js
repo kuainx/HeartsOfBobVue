@@ -17,20 +17,18 @@ for (var key in RawData.spirit) {
     spirit[key] = new HOBSpirit(item.name, e)
 }
 
+let leader={
+
+};
+
 let GameData = {
-    assets: {
-        basicEduPoint: 2
-    },
-    base: {
-        stability: 23,
-        studySupport: 46
-    },
-    spirit: spirit
+    tempEvent:[],
+    baseData: RawData.baseData,
+    spirit: spirit,
+    leader:leader
+
 }
 console.log(GameData);
-// let e1 = new HOBEffect("eduPoint", -0.05, false)
-// let e2 = new HOBEffect("stability", -0.05, false)
-// let s = new HOBSpirit("印刷机损坏", [e1, e2]);
 
 export {
     GameData
