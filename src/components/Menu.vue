@@ -1,0 +1,83 @@
+<template>
+<div>
+	<a-modal title="菜单" centered v-model="$root.runData.esc" :footer="null" :keyboard="false" :maskClosable="false" :closable="false" :z-index="10000">
+		<a-button class="menu-btn" type="primary" block @click="toggleRead">读取存档</a-button>
+		<a-button class="menu-btn" type="primary" block @click="toggleWrite">存储存档</a-button>
+		<a-button class="menu-btn" type="primary" block>回到主界面</a-button>
+		<a-button class="menu-btn" type="primary" block>关闭</a-button>
+	</a-modal>
+	<a-modal title="读取存档" centered v-model="read" cancelText="取消" okText="保存" :confirmLoading="readLoading" :maskClosable="false" :z-index="10001" @cancel="readCancel" @ok="readSave">
+		<a-input-search placeholder="存档名称" @search="setNewName" v-model="saveName" @change="inputChange">
+			<a-icon slot="prefix" theme="filled" type="book" />
+			<a-button slot="enterButton">
+				<a-icon type="reload" />
+			</a-button>
+		</a-input-search>
+		<a-menu mode="vertical" @click="saveListClick">
+			<a-menu-item v-for="item in saveList" :key="item">
+				<a-icon type="file-text" />
+				{{item}}
+			</a-menu-item>
+		</a-menu>
+	</a-modal>
+</div>
+</template>
+
+<script>
+export default {
+	name: "Menu",
+	data() {
+		return {
+			read: false,
+			readLoading: false,
+			write: false,
+			writeLoading: false,
+			saveName: ''
+		}
+	},
+	methods: {
+		newSaveName() {
+			let day = new Date();
+			let ret = day.getFullYear() + "-" + (day.getMonth() + 1) + "-" + day.getDate() + '#' + day.getHours() + ':' + day.getMinutes() + ":" + day.getSeconds() + '.hob';
+			this.saveName = ret;
+		},
+		setNewName(e, a) {
+			if (a.constructor.name == "MouseEvent") {
+				this.newSaveName();
+			}
+		},
+		toggleRead() {
+			this.read = !this.read;
+			this.newSaveName();
+		},
+		toggleWrite() {
+			this.write = !this.write;
+			this.newSaveName();
+		},
+		readSave() {
+			this.readLoading = true;
+			console.log("ok")
+		},
+		readCancel() {
+			this.readLoading = false;
+		},
+		saveListClick(item) {
+			this.saveName = item.key;
+		},
+		inputChange() {
+
+		}
+	},
+	computed: {
+		saveList() {
+			return ['aaa', 'bbb', 'ccc']
+		}
+	}
+}
+</script>
+
+<style scoped>
+.menu-btn {
+	margin: 5px;
+}
+</style>

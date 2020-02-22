@@ -1,5 +1,6 @@
 <template>
 <div id="app">
+	<Menu></Menu>
 	<TopBar></TopBar>
 	<!-- <a-button type="primary">Button</a-button> -->
 </div>
@@ -7,16 +8,13 @@
 
 <script>
 import TopBar from './components/TopBar.vue'
+import Menu from './components/Menu.vue'
 
 export default {
 	name: 'app',
 	components: {
-		TopBar
-	},
-	data: function () {
-		return {
-
-		}
+		TopBar,
+		Menu
 	}
 }
 </script>
