@@ -5,7 +5,6 @@ import './assets/func.js'
 import {
     GameData
 } from './assets/gameData.js'
-import './assets/inDB.js'
 import 'ant-design-vue/dist/antd.css'
 import './assets/main.css'
 
