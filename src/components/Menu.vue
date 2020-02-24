@@ -15,9 +15,10 @@
 			</a-button>
 		</a-input-search>
 		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
-			<a-menu-item v-for="item in saveList" :key="item">
+			<a-menu-item v-for="item in saveList" :key="item.name">
 				<a-icon type="file-text" />
-				{{item}}
+				{{item.name}}（{{item.timeText}}）
+				<a-button type="danger" shape="circle" @click="delSave" :item="item.name" class="del-btn"><span class="times-line">&times;</span></a-button>
 			</a-menu-item>
 		</a-menu>
 	</a-modal>
@@ -30,9 +31,10 @@
 			</a-button>
 		</a-input-search>
 		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
-			<a-menu-item v-for="item in saveList" :key="item">
+			<a-menu-item v-for="item in saveList" :key="item.name">
 				<a-icon type="file-text" />
-				{{item}}
+				{{item.name}}（{{item.timeText}}）
+				<a-button type="danger" shape="circle" @click="delSave" :item="item.name" class="del-btn"><span class="times-line">&times;</span></a-button>
 			</a-menu-item>
 		</a-menu>
 	</a-modal>
@@ -40,7 +42,9 @@
 </template>
 
 <script>
-import HOBDB from '../assets/inDB.js'
+import {
+	HOBDB
+} from '../assets/inDB.js'
 window.HOBDB = HOBDB;
 export default {
 	name: "Menu",
@@ -51,7 +55,8 @@ export default {
 			write: false,
 			writeLoading: false,
 			saveName: '',
-			keyList: []
+			keyList: [],
+			saveList: []
 		}
 	},
 	methods: {
@@ -64,22 +69,25 @@ export default {
 			if (a.constructor.name == "MouseEvent") {
 				this.newSaveName();
 				this.inputChange();
+				this.refreshList();
 			}
 		},
 		toggleRead() {
 			this.read = !this.read;
 			this.newSaveName();
 			this.inputChange();
+			this.refreshList();
 		},
 		toggleWrite() {
 			this.write = !this.write;
 			this.newSaveName();
 			this.inputChange();
+			this.refreshList();
 		},
 		readSave() {
 			this.readLoading = true;
 			let that = this;
-			if (this.saveList.indexOf(this.saveName) >= 0) {
+			if (this.existName(this.saveName)) {
 				window.alertM('这将覆盖当前内存，且无法恢复！确定覆盖吗？', '警告', 'confirm', {
 					zIndex: 10100,
 					onOk() {
@@ -98,7 +106,7 @@ export default {
 		},
 		writeSave() {
 			this.readLoading = true;
-			if (this.saveList.indexOf(this.saveName) >= 0) {
+			if (this.existName(this.saveName)) {
 				let that = this;
 				window.alertM('这将覆盖一个存档，且无法恢复！确认覆盖存档吗？', '警告', 'confirm', {
 					zIndex: 10100,
@@ -110,7 +118,7 @@ export default {
 					}
 				})
 			} else {
-
+				console.log('1')
 			}
 		},
 		readCancel() {
@@ -124,11 +132,34 @@ export default {
 		},
 		inputChange() {
 			this.keyList[0] = this.saveName;
-		}
-	},
-	computed: {
-		saveList() {
-			return ['aaa', 'bbb', 'ccc']
+		},
+		delSave(e) {
+			e.stopPropagation();
+			let name = e.target.getAttribute("item");
+			window.alertM('这将删除一个存档（' + name + '），且无法恢复！确认删除存档（' + name + '）吗？', '警告', 'confirm', {
+				zIndex: 10100,
+				onOk() {
+					console.log('ok');
+				}
+			})
+		},
+		refreshList() {
+			let that = this;
+			HOBDB.getAll(function (e) {
+				for (var i = 0; i < e.length; i++) {
+					let day = e[i].time;
+					e[i].timeText = day.getFullYear() + "年" + (day.getMonth() + 1) + "月" + day.getDate() + '日' + day.getHours() + '时' + day.getMinutes() + "分";
+				}
+				that.saveList = e;
+			});
+		},
+		existName(name) {
+			for (var i = 0; i < this.saveList.length; i++) {
+				if (this.saveList[i].name == name) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }
@@ -137,5 +168,16 @@ export default {
 <style scoped>
 .menu-btn {
 	margin: 5px;
+}
+
+.del-btn {
+	float: right;
+	margin: 4px;
+
+}
+
+.times-line {
+	font-size: 20px;
+	line-height: 10px;
 }
 </style>
