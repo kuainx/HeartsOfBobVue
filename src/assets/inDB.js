@@ -9,8 +9,6 @@ request.onerror = function(event) {
 };
 request.onsuccess = function(event) {
     HOBDB.db = event.target.result;
-
-
 };
 request.onupgradeneeded = function(event) {
     let db = event.target.result;

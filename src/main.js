@@ -9,7 +9,7 @@ import 'ant-design-vue/dist/antd.css'
 import './assets/main.css'
 
 window.gameData = GameData;
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(Antd);
 
 window.vm = new Vue({
@@ -18,6 +18,7 @@ window.vm = new Vue({
         gameData: window.gameData,
         runData:{
             speed:1,
+            pause:true,
             esc:true
         }
     }

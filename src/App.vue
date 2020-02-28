@@ -15,6 +15,15 @@ export default {
 	components: {
 		TopBar,
 		Menu
+	},
+	mounted() {
+		let that = this;
+		document.onkeydown = function (e) {
+			if (e.keyCode == 27) {
+				window.event.preventDefault();
+				that.$root.runData.esc = !that.$root.runData.esc;
+			}
+		};
 	}
 }
 </script>

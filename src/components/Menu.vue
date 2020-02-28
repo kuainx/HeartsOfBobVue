@@ -1,6 +1,7 @@
 <template>
 <div>
 	<a-modal title="菜单" centered v-model="$root.runData.esc" :footer="null" :keyboard="false" :maskClosable="false" :closable="false" :z-index="10000">
+		<a-button class="menu-btn" type="primary" block @click="toggleEsc">继续</a-button>
 		<a-button class="menu-btn" type="primary" block @click="toggleRead">读取存档</a-button>
 		<a-button class="menu-btn" type="primary" block @click="toggleWrite">存储存档</a-button>
 		<a-button class="menu-btn" type="primary" block>回到主界面</a-button>
@@ -45,7 +46,6 @@
 import {
 	HOBDB
 } from '../assets/inDB.js'
-window.HOBDB = HOBDB;
 export default {
 	name: "Menu",
 	data() {
@@ -84,6 +84,9 @@ export default {
 			this.inputChange();
 			this.refreshList();
 		},
+		toggleEsc() {
+			this.$root.runData.esc = false;
+		},
 		readSave() {
 			this.readLoading = true;
 			let that = this;
@@ -91,34 +94,41 @@ export default {
 				window.alertM('这将覆盖当前内存，且无法恢复！确定覆盖吗？', '警告', 'confirm', {
 					zIndex: 10100,
 					onOk() {
-						console.log('ok')
+						HOBDB.get(that.saveName, function (e) {
+							window.gameData = e.data;
+							that.readCancel();
+						});
 					},
 					onCancel() {
-						that.readLoading = false;
+						that.readCancel();
 					}
 				});
 			} else {
-				window.alertM('存档不存在', '错误', 'error', {
+				window.alertM('存档' + that.saveName + '不存在', '错误', 'error', {
 					zIndex: 10100
 				});
-				this.readLoading = false;
+				this.readCancel();
 			}
 		},
 		writeSave() {
-			this.readLoading = true;
+			this.writeLoading = true;
 			if (this.existName(this.saveName)) {
 				let that = this;
 				window.alertM('这将覆盖一个存档，且无法恢复！确认覆盖存档吗？', '警告', 'confirm', {
 					zIndex: 10100,
 					onOk() {
-						console.log('ok')
+						HOBDB.set(that.saveName, window.gameData);
+						that.refreshList();
+						that.writeCancel();
 					},
 					onCancel() {
-						that.readLoading = false;
+						that.writeCancel();
 					}
-				})
+				});
 			} else {
-				console.log('1')
+				HOBDB.set(this.saveName, window.gameData);
+				this.refreshList();
+				this.writeCancel();
 			}
 		},
 		readCancel() {
@@ -136,12 +146,14 @@ export default {
 		delSave(e) {
 			e.stopPropagation();
 			let name = e.target.getAttribute("item");
+			let that = this;
 			window.alertM('这将删除一个存档（' + name + '），且无法恢复！确认删除存档（' + name + '）吗？', '警告', 'confirm', {
 				zIndex: 10100,
 				onOk() {
-					console.log('ok');
+					HOBDB.delete(name);
+					that.refreshList();
 				}
-			})
+			});
 		},
 		refreshList() {
 			let that = this;
