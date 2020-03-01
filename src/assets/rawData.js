@@ -22,7 +22,28 @@ export let RawData = {
             base: false,
             once: false
         }]
+    }],
+    party: {
+        prop: [.23, .64, .13, 0],
+        name: ['文科主义', '理科主义', '中立主义', '无主义'],
+        now: 1
+    },
+    stability: {
+        val: .58,
+        base: .58,
+        effect: []
+    },
+    studySupport: {
+        val: .56,
+        base: .56
+    },
+    eduPoint: {
+        val: 50
+    },
+    effect: [{
+        name: '改进学习环境',
+        effect: [{
+            type: ''
+        }]
     }]
-
-
 }

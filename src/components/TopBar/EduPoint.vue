@@ -34,6 +34,9 @@ export default {
 
 		}
 	},
+	computed: {
+
+	},
 	methods: {
 		change() {
 			this.$root.dat.base.stability++;
