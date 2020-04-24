@@ -4,7 +4,7 @@
 		<a-button class="menu-btn" type="primary" block @click="toggleEsc">继续</a-button>
 		<a-button class="menu-btn" type="primary" block @click="toggleRead">读取存档</a-button>
 		<a-button class="menu-btn" type="primary" block @click="toggleWrite">存储存档</a-button>
-		<a-button class="menu-btn" type="primary" block>回到主界面</a-button>
+		<a-button class="menu-btn" type="primary" block @click="aboutClick">关于</a-button>
 		<a-button class="menu-btn" type="primary" block>关闭</a-button>
 	</a-modal>
 
@@ -39,6 +39,31 @@
 			</a-menu-item>
 		</a-menu>
 	</a-modal>
+
+	<a-modal title="关于" centered v-model="about" :z-index="10001">
+		<h2>Hearts Of Bob (Vue)</h2>
+		<h3>Version</h3>
+		<ul>
+			<li>Alpha-0.1.11</li>
+			<li>Latest build:2020-04-25</li>
+		</ul>
+		<h3>Source Code</h3>
+		<ul>
+			<li>GitHub(latest): <a href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
+			<li>Build: <a href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
+		</ul>
+		<h3>Use</h3>
+		<ul>
+			<li>Vue</li>
+			<li>Ant Design Vue</li>
+			<li>AntV G6</li>
+		</ul>
+		<div slot="footer">
+			<a-button type="primary" @click="about=false">
+				确认
+			</a-button>
+		</div>
+	</a-modal>
 </div>
 </template>
 
@@ -54,6 +79,7 @@ export default {
 			readLoading: false,
 			write: false,
 			writeLoading: false,
+			about: false,
 			saveName: '',
 			keyList: [],
 			saveList: []
@@ -172,6 +198,9 @@ export default {
 				}
 			}
 			return false;
+		},
+		aboutClick() {
+			this.about = true;
 		}
 	}
 }
