@@ -9,12 +9,14 @@
 	</a-modal>
 
 	<a-modal title="读取存档" centered v-model="read" cancelText="取消" okText="加载" :confirmLoading="readLoading" :maskClosable="false" :z-index="10001" @cancel="readCancel" @ok="readSave">
-		<a-input-search placeholder="存档名称" @search="setNewName" v-model="saveName" @change="inputChange">
-			<a-icon slot="prefix" theme="filled" type="book" />
-			<a-button slot="enterButton">
-				<a-icon type="reload" />
-			</a-button>
-		</a-input-search>
+		<b-input-group prepend="存档名">
+			<b-form-input v-model="saveName"></b-form-input>
+			<b-input-group-append>
+				<b-button variant="outline-primary" @click="saveName=''">
+					<b-icon-backspace-fill></b-icon-backspace-fill>
+				</b-button>
+			</b-input-group-append>
+		</b-input-group>
 		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
 			<a-menu-item v-for="item in saveList" :key="item.name">
 				<a-icon type="file-text" />
@@ -25,12 +27,14 @@
 	</a-modal>
 
 	<a-modal title="存储存档" centered v-model="write" cancelText="取消" okText="存储" :confirmLoading="writeLoading" :maskClosable="false" :z-index="10001" @cancel="writeCancel" @ok="writeSave">
-		<a-input-search placeholder="存档名称" @search="setNewName" v-model="saveName" @change="inputChange">
-			<a-icon slot="prefix" theme="filled" type="book" />
-			<a-button slot="enterButton">
-				<a-icon type="reload" />
-			</a-button>
-		</a-input-search>
+		<b-input-group prepend="存档名">
+			<b-form-input v-model="saveName"></b-form-input>
+			<b-input-group-append>
+				<b-button variant="outline-primary" @click="newSaveName">
+					<b-icon-arrow-clockwise></b-icon-arrow-clockwise>
+				</b-button>
+			</b-input-group-append>
+		</b-input-group>
 		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
 			<a-menu-item v-for="item in saveList" :key="item.name">
 				<a-icon type="file-text" />
@@ -49,8 +53,8 @@
 		</ul>
 		<h3>Source Code</h3>
 		<ul>
-			<li>GitHub(latest): <a href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
-			<li>Build: <a href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
+			<li>GitHub(latest): <a target="_blank" href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
+			<li>Build: <a target="_blank" href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
 		</ul>
 		<h3>Use</h3>
 		<ul>
@@ -85,29 +89,25 @@ export default {
 			saveList: []
 		}
 	},
+	watch: {
+		saveName() {
+			this.keyList[0] = this.saveName;
+		}
+	},
 	methods: {
 		newSaveName() {
 			let day = new Date();
 			let ret = day.getFullYear() + "-" + (day.getMonth() + 1) + "-" + day.getDate() + '#' + day.getHours() + ':' + day.getMinutes() + ":" + day.getSeconds() + '.hob';
 			this.saveName = ret;
 		},
-		setNewName(e, a) {
-			if (a.constructor.name == "MouseEvent") {
-				this.newSaveName();
-				this.inputChange();
-				this.refreshList();
-			}
-		},
 		toggleRead() {
 			this.read = !this.read;
 			this.newSaveName();
-			this.inputChange();
 			this.refreshList();
 		},
 		toggleWrite() {
 			this.write = !this.write;
 			this.newSaveName();
-			this.inputChange();
 			this.refreshList();
 		},
 		toggleEsc() {
@@ -165,9 +165,6 @@ export default {
 		},
 		saveListClick(item) {
 			this.saveName = item.key;
-		},
-		inputChange() {
-			this.keyList[0] = this.saveName;
 		},
 		delSave(e) {
 			e.stopPropagation();

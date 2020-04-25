@@ -2,6 +2,7 @@
 <div id="app">
 	<Menu></Menu>
 	<TopBar></TopBar>
+	<SideBar></SideBar>
 	<!-- <a-button type="primary">Button</a-button> -->
 </div>
 </template>
@@ -9,12 +10,14 @@
 <script>
 import TopBar from './components/TopBar.vue'
 import Menu from './components/Menu.vue'
+import SideBar from './components/SideBar.vue'
 
 export default {
 	name: 'app',
 	components: {
 		TopBar,
-		Menu
+		Menu,
+		SideBar
 	},
 	mounted() {
 		let that = this;
