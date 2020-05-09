@@ -1,17 +1,18 @@
 {
-  "name": "antd-demo",
-  "version": "0.1.0",
+  "name": "hearts-of-bob-vue",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "vue-cli-service serve --open"
   },
   "dependencies": {
     "@antv/g6": "^3.3.6",
-    "ant-design-vue": "^1.4.10",
-    "bootstrap-vue": "^2.12.0",
     "core-js": "^3.4.4",
+    "google-fonts-webpack-plugin": "^0.4.4",
+    "mdbvue": "./mdb/mdbvue/mdbvue-6.7.1.tgz",
     "vue": "^2.6.10",
     "webpack": "^4.41.5"
   },
@@ -22,6 +23,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "vue-cli-plugin-mdb": "~2.1.0",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
