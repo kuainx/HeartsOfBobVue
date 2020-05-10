@@ -1,21 +1,41 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo-mdb-vue-small.png">
-    <router-view/>
-  </div>
+<div id="app">
+	<Menu></Menu>
+	<TopBar></TopBar>
+	<SideBar></SideBar>
+	<!-- <a-button type="primary">Button</a-button> -->
+</div>
 </template>
 
 <script>
+import TopBar from './components/TopBar.vue'
+import Menu from './components/Menu.vue'
+import SideBar from './components/SideBar.vue'
+
 export default {
-  name: 'App'
+	name: 'app',
+	components: {
+		TopBar,
+		Menu,
+		SideBar
+	},
+	mounted() {
+		let that = this;
+		document.onkeydown = function (e) {
+			if (e.keyCode == 27) {
+				window.event.preventDefault();
+				that.$root.runData.esc = !that.$root.runData.esc;
+			}
+		};
+	}
 }
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
-
 #app {
-  text-align: center;
-  margin-top: 150px;
+	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #2c3e50;
 }
 </style>
