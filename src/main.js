@@ -6,7 +6,7 @@ import {
 } from './assets/gameData.js'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
-import 'mdbvue/lib/css/mdb.min.css'
+import 'mdbvue/lib/mdbvue.css'
 import './assets/main.css'
 
 window.gameData = GameData;

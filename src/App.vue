@@ -31,11 +31,8 @@ export default {
 }
 </script>
 
-<style>
-#app {
-	font-family: 'Avenir', Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	color: #2c3e50;
-}
+<style lang="scss">
+$image-path: '~@/../mdb/mdbvue/img';
+@import '~@/../mdb/mdbvue/scss/mdb-pro.scss';
+@import url('./fonts/fonts.css');
 </style>
