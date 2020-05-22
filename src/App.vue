@@ -31,6 +31,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
-$image-path: '~@/assets/mdbimg';
+<style>
 </style>
