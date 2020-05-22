@@ -1,0 +1,1 @@
+sass mdb-pro.scss:mdb-pro.css --style compressed

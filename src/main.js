@@ -4,10 +4,12 @@ import './assets/func.js'
 import {
     GameData
 } from './assets/gameData.js'
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbvue/lib/mdbvue.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import './assets/mdb-pro.css'
 import './assets/main.css'
+import './fonts/fonts.css'
 
 window.gameData = GameData;
 Vue.config.productionTip = false;

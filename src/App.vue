@@ -32,7 +32,5 @@ export default {
 </script>
 
 <style lang="scss">
-$image-path: '~@/../mdb/mdbvue/img';
-@import '~@/../mdb/mdbvue/scss/mdb-pro.scss';
-@import url('./fonts/fonts.css');
+$image-path: '~@/assets/mdbimg';
 </style>
