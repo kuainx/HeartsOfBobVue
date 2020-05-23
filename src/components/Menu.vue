@@ -1,12 +1,40 @@
 <template>
 <div>
-	<a-modal title="菜单" centered v-model="$root.runData.esc" :footer="null" :keyboard="false" :maskClosable="false" :closable="false" :z-index="10000">
-		<a-button class="menu-btn" type="primary" block @click="toggleEsc">继续</a-button>
-		<a-button class="menu-btn" type="primary" block @click="toggleRead">读取存档</a-button>
-		<a-button class="menu-btn" type="primary" block @click="toggleWrite">存储存档</a-button>
-		<a-button class="menu-btn" type="primary" block @click="aboutClick">关于</a-button>
-		<a-button class="menu-btn" type="primary" block>关闭</a-button>
-	</a-modal>
+	<mdb-modal removeBackdrop centered :show="$root.runData.esc" @close="$root.runData.esc = false">
+		<mdb-modal-header>
+			<mdb-modal-title>菜单</mdb-modal-title>
+		</mdb-modal-header>
+		<mdb-modal-body>
+			<mdb-btn class="menu-btn" rounded block color="primary" @click="toggleEsc">继续</mdb-btn>
+			<mdb-btn class="menu-btn" rounded block color="primary" @click="toggleRead">读取存档</mdb-btn>
+			<mdb-btn class="menu-btn" rounded block color="primary" @click="toggleWrite">存储存档</mdb-btn>
+			<mdb-btn class="menu-btn" rounded block color="primary" @click="aboutClick">关于</mdb-btn>
+			<mdb-btn class="menu-btn" rounded block color="primary">关闭</mdb-btn>
+		</mdb-modal-body>
+	</mdb-modal>
+	<blackBack :show="$root.runData.esc"></blackBack>
+	<mdb-modal centered :show="read" @close="read = false">
+		<mdb-modal-header>
+			<mdb-modal-title>读取存档</mdb-modal-title>
+		</mdb-modal-header>
+		<mdb-modal-body>
+			<mdb-input label="存档名" v-model="saveName">
+				<mdb-btn color="primary" size="md" group slot="append" @click="saveName=''">
+					<mdb-icon icon="sync-alt" />
+				</mdb-btn>
+			</mdb-input>
+			<mdb-list-group>
+				<mdb-btn-group>
+					<mdb-btn outline="primary" @click.native="saveListClick($event)" :active="false">Pre-checked</mdb-btn>
+					<mdb-btn color="danger" @click.native="delSave($event)" :active="true">Check</mdb-btn>
+				</mdb-btn-group>
+			</mdb-list-group>
+		</mdb-modal-body>
+		<mdb-modal-footer>
+			<mdb-btn color="primary" @click.native="read = false">取消</mdb-btn>
+		</mdb-modal-footer>
+	</mdb-modal>
+
 
 	<a-modal title="读取存档" centered v-model="read" cancelText="取消" okText="加载" :confirmLoading="readLoading" :maskClosable="false" :z-index="10001" @cancel="readCancel" @ok="readSave">
 		<b-input-group prepend="存档名">
@@ -44,30 +72,34 @@
 		</a-menu>
 	</a-modal>
 
-	<a-modal title="关于" centered v-model="about" :z-index="10001">
-		<h2>Hearts Of Bob (Vue)</h2>
-		<h3>Version</h3>
-		<ul>
-			<li>Alpha-0.1.11</li>
-			<li>Latest build:2020-04-25</li>
-		</ul>
-		<h3>Source Code</h3>
-		<ul>
-			<li>GitHub(latest): <a target="_blank" href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
-			<li>Build: <a target="_blank" href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
-		</ul>
-		<h3>Use</h3>
-		<ul>
-			<li>Vue</li>
-			<li>Ant Design Vue</li>
-			<li>AntV G6</li>
-		</ul>
-		<div slot="footer">
-			<a-button type="primary" @click="about=false">
-				确认
-			</a-button>
-		</div>
-	</a-modal>
+	<mdb-modal :show="about" @close="about = false">
+		<mdb-modal-header>
+			<mdb-modal-title>关于</mdb-modal-title>
+		</mdb-modal-header>
+		<mdb-modal-body>
+			<h2>Hearts Of Bob (Vue)</h2>
+			<h3>Version</h3>
+			<ul>
+				<li>Alpha-0.2.01</li>
+				<li>Latest build:2020-04-25(Alpha-0.1.11)</li>
+			</ul>
+			<h3>Source Code</h3>
+			<ul>
+				<li>GitHub(latest): <a target="_blank" href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
+				<li>Build: <a target="_blank" href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
+			</ul>
+			<h3>Use</h3>
+			<ul>
+				<li>Vue</li>
+				<li>Bootstrap Material Design for Vue</li>
+				<li>AntV G6</li>
+			</ul>
+		</mdb-modal-body>
+		<mdb-modal-footer>
+			<mdb-btn color="primary" @click.native="about = false">关闭</mdb-btn>
+		</mdb-modal-footer>
+	</mdb-modal>
+
 </div>
 </template>
 
@@ -75,8 +107,12 @@
 import {
 	HOBDB
 } from '../assets/inDB.js'
+import BlackBack from './Menu/BlackBack.vue'
 export default {
 	name: "Menu",
+	components: {
+		BlackBack
+	},
 	data() {
 		return {
 			read: false,
@@ -164,9 +200,11 @@ export default {
 			this.writeLoading = false;
 		},
 		saveListClick(item) {
+			console.log(item)
 			this.saveName = item.key;
 		},
 		delSave(e) {
+			console.log(e);
 			e.stopPropagation();
 			let name = e.target.getAttribute("item");
 			let that = this;
@@ -205,7 +243,7 @@ export default {
 
 <style scoped>
 .menu-btn {
-	margin: 5px;
+	margin: 5px !important;
 }
 
 .del-btn {

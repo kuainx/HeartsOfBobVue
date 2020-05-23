@@ -1,0 +1,3 @@
+.modal-without-backdrop {
+    pointer-events: auto!important;
+}

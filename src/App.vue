@@ -3,7 +3,6 @@
 	<Menu></Menu>
 	<TopBar></TopBar>
 	<SideBar></SideBar>
-	<!-- <a-button type="primary">Button</a-button> -->
 </div>
 </template>
 

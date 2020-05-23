@@ -1,1 +1,1 @@
-sass mdb-pro.scss:mdb-pro.css --style compressed
+sass mdb-pro.scss:mdb-pro.css --style compressed --sourcemap=none

@@ -11,6 +11,10 @@ import './assets/mdb-pro.css'
 import './assets/main.css'
 import './fonts/fonts.css'
 
+import * as mdbvue from 'mdbvue'
+for (const component in mdbvue) {
+    Vue.component(component, mdbvue[component])
+}
 window.gameData = GameData;
 Vue.config.productionTip = false;
 
@@ -18,11 +22,11 @@ window.vm = new Vue({
     render: h => h(App),
     data: {
         gameData: window.gameData,
-        runData:{
-            speed:1,
-            pause:true,
-            esc:true,
-            sideBar:false
+        runData: {
+            speed: 1,
+            pause: true,
+            esc: true,
+            sideBar: false
         }
     }
 }).$mount('#app')
