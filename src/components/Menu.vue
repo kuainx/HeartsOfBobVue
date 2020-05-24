@@ -23,12 +23,7 @@
 					<mdb-icon icon="sync-alt" />
 				</mdb-btn>
 			</mdb-input>
-			<mdb-list-group>
-				<mdb-btn-group>
-					<mdb-btn outline="primary" @click.native="saveListClick($event)" :active="false">Pre-checked</mdb-btn>
-					<mdb-btn color="danger" @click.native="delSave($event)" :active="true">Check</mdb-btn>
-				</mdb-btn-group>
-			</mdb-list-group>
+			<MenuList :dataList="saveList" v-model="key" @del="delSave"></MenuList>
 		</mdb-modal-body>
 		<mdb-modal-footer>
 			<mdb-btn color="primary" @click.native="read = false">取消</mdb-btn>
@@ -45,7 +40,7 @@
 				</b-button>
 			</b-input-group-append>
 		</b-input-group>
-		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
+		<a-menu mode="vertical" @click="saveListClick" v-model="key">
 			<a-menu-item v-for="item in saveList" :key="item.name">
 				<a-icon type="file-text" />
 				{{item.name}}（{{item.timeText}}）
@@ -108,10 +103,12 @@ import {
 	HOBDB
 } from '../assets/inDB.js'
 import BlackBack from './Menu/BlackBack.vue'
+import MenuList from './Menu/MenuList.vue'
 export default {
 	name: "Menu",
 	components: {
-		BlackBack
+		BlackBack,
+		MenuList
 	},
 	data() {
 		return {
@@ -121,7 +118,7 @@ export default {
 			writeLoading: false,
 			about: false,
 			saveName: '',
-			keyList: [],
+			key: -1,
 			saveList: []
 		}
 	},
