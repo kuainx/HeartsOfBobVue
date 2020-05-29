@@ -11,6 +11,8 @@ import './assets/mdb-pro.css'
 import './assets/main.css'
 import './fonts/fonts.css'
 
+import AlertM from './components/Core/AlertM.js'
+Vue.use(AlertM);
 import * as mdbvue from 'mdbvue'
 for (const component in mdbvue) {
     Vue.component(component, mdbvue[component])
