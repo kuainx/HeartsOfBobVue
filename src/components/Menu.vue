@@ -23,7 +23,7 @@
 					<mdb-icon icon="sync-alt" />
 				</mdb-btn>
 			</mdb-input>
-			<MenuList :dataList="saveList" v-model="key" @del="delSave"></MenuList>
+			<MenuList :dataList="saveList" v-model="key" @del="delSave" @item="itemClick"></MenuList>
 		</mdb-modal-body>
 		<mdb-modal-footer>
 			<mdb-btn color="primary" @click.native="read = false">取消</mdb-btn>
@@ -124,7 +124,7 @@ export default {
 	},
 	watch: {
 		saveName() {
-			this.keyList[0] = this.saveName;
+			this.key = this.saveList.indexOf(this.saveName);
 		}
 	},
 	methods: {
@@ -150,8 +150,7 @@ export default {
 			this.readLoading = true;
 			let that = this;
 			if (this.existName(this.saveName)) {
-				window.alertM('这将覆盖当前内存，且无法恢复！确定覆盖吗？', '警告', 'confirm', {
-					zIndex: 10100,
+				window.alertM('这将覆盖当前内存，且无法恢复！确定覆盖吗？', '警告', 'danger', {
 					onOk() {
 						HOBDB.get(that.saveName, function (e) {
 							window.gameData = e.data;
@@ -173,8 +172,7 @@ export default {
 			this.writeLoading = true;
 			if (this.existName(this.saveName)) {
 				let that = this;
-				window.alertM('这将覆盖一个存档，且无法恢复！确认覆盖存档吗？', '警告', 'confirm', {
-					zIndex: 10100,
+				window.alertM('这将覆盖一个存档，且无法恢复！确认覆盖存档吗？', '警告', 'danger', {
 					onOk() {
 						HOBDB.set(that.saveName, window.gameData);
 						that.refreshList();
@@ -212,6 +210,9 @@ export default {
 					that.refreshList();
 				}
 			});
+		},
+		itemClick() {
+			this.saveName = this.saveList[this.key];
 		},
 		refreshList() {
 			let that = this;

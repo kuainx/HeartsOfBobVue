@@ -2,26 +2,17 @@ window.alertM = function(msg, title = '提示', type = 'info', assign = {}) {
     let j = {
         title: title,
         content: msg,
-        okText:'确认',
-        cancelText:'取消'
+        color: type
     };
-    j = Object.assign(j, assign);
     switch (type) {
-        case 'info':
-            window.vm.$info(j);
-            break;
-        case 'success':
-            window.vm.$success(j);
-            break;
-        case 'warning':
-            window.vm.$warning(j);
-            break;
         case 'error':
-            window.vm.$error(j);
-            break;
-        case 'confirm':
-            window.vm.$confirm(j)
+            j.color = 'danger';
+            j.icon = 'times'
             break;
     }
-
+    if (assign.onCancel == undefined && assign.noText == undefined) {
+        j.noText = '';
+    }
+    j = Object.assign(j, assign);
+    window.vm.$AlertM(j);
 }

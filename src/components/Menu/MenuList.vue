@@ -18,17 +18,17 @@ export default {
 		prop: 'key',
 		event: 'change'
 	},
-	props: ['dataList', 'key', 'del', 'item'],
+	props: ['dataList', 'key'],
 	data: () => ({
 
 	}),
 	methods: {
 		delClick(e) {
-			console.log(e)
+			this.$emit('del', e);
 		},
 		itemClick(e) {
-			console.log(e)
 			this.key = e;
+			this.$emit('item', e);
 		}
 	},
 	watch: {
