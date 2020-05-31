@@ -1,9 +1,10 @@
 <template>
 <div class="TopBar">
-	<a-card style="width: 100%">
-		<EduPoint></EduPoint>
-	</a-card>
-
+	<mdb-card>
+		<mdb-card-body>
+			<EduPoint></EduPoint>
+		</mdb-card-body>
+	</mdb-card>
 </div>
 </template>
 
@@ -25,5 +26,16 @@ export default {
 <style scoped>
 .TopBar {
 	margin: 5px;
+}
+
+>>>.iconBtn {
+	padding: 0;
+	margin-right: 0;
+	max-width: 50px;
+	min-width: 50px;
+}
+
+>>>.numBtn {
+	margin-left: 0;
 }
 </style>
