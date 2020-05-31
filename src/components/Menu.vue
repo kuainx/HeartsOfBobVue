@@ -20,52 +20,34 @@
 		<mdb-modal-body>
 			<mdb-input label="存档名" v-model="saveName">
 				<mdb-btn color="primary" size="md" group slot="append" @click="saveName=''">
-					<mdb-icon icon="sync-alt" />
+					<mdb-icon icon="backspace" />
 				</mdb-btn>
 			</mdb-input>
-			<MenuList :dataList="saveList" v-model="key" @del="delSave" @item="itemClick"></MenuList>
+			<MenuList :dataList="saveList" v-model="listKey" @del="delSave" @item="itemClick"></MenuList>
 		</mdb-modal-body>
 		<mdb-modal-footer>
-			<mdb-btn color="primary" @click.native="read = false">取消</mdb-btn>
+			<mdb-btn outline="primary" @click="read = false">取消</mdb-btn>
+			<mdb-btn color="primary" @click="readSave">确认</mdb-btn>
 		</mdb-modal-footer>
 	</mdb-modal>
 
-
-	<a-modal title="读取存档" centered v-model="read" cancelText="取消" okText="加载" :confirmLoading="readLoading" :maskClosable="false" :z-index="10001" @cancel="readCancel" @ok="readSave">
-		<b-input-group prepend="存档名">
-			<b-form-input v-model="saveName"></b-form-input>
-			<b-input-group-append>
-				<b-button variant="outline-primary" @click="saveName=''">
-					<b-icon-backspace-fill></b-icon-backspace-fill>
-				</b-button>
-			</b-input-group-append>
-		</b-input-group>
-		<a-menu mode="vertical" @click="saveListClick" v-model="key">
-			<a-menu-item v-for="item in saveList" :key="item.name">
-				<a-icon type="file-text" />
-				{{item.name}}（{{item.timeText}}）
-				<a-button type="danger" shape="circle" @click="delSave" :item="item.name" class="del-btn"><span class="times-line">&times;</span></a-button>
-			</a-menu-item>
-		</a-menu>
-	</a-modal>
-
-	<a-modal title="存储存档" centered v-model="write" cancelText="取消" okText="存储" :confirmLoading="writeLoading" :maskClosable="false" :z-index="10001" @cancel="writeCancel" @ok="writeSave">
-		<b-input-group prepend="存档名">
-			<b-form-input v-model="saveName"></b-form-input>
-			<b-input-group-append>
-				<b-button variant="outline-primary" @click="newSaveName">
-					<b-icon-arrow-clockwise></b-icon-arrow-clockwise>
-				</b-button>
-			</b-input-group-append>
-		</b-input-group>
-		<a-menu mode="vertical" @click="saveListClick" v-model="keyList">
-			<a-menu-item v-for="item in saveList" :key="item.name">
-				<a-icon type="file-text" />
-				{{item.name}}（{{item.timeText}}）
-				<a-button type="danger" shape="circle" @click="delSave" :item="item.name" class="del-btn"><span class="times-line">&times;</span></a-button>
-			</a-menu-item>
-		</a-menu>
-	</a-modal>
+	<mdb-modal centered :show="write" @close="write = false">
+		<mdb-modal-header>
+			<mdb-modal-title>存储存档</mdb-modal-title>
+		</mdb-modal-header>
+		<mdb-modal-body>
+			<mdb-input label="存档名" v-model="saveName">
+				<mdb-btn color="primary" size="md" group slot="append" @click="newSaveName">
+					<mdb-icon icon="sync-alt" />
+				</mdb-btn>
+			</mdb-input>
+			<MenuList :dataList="saveList" v-model="listKey" @del="delSave" @item="itemClick"></MenuList>
+		</mdb-modal-body>
+		<mdb-modal-footer>
+			<mdb-btn outline="primary" @click="write = false">取消</mdb-btn>
+			<mdb-btn color="primary" @click="writeSave">确认</mdb-btn>
+		</mdb-modal-footer>
+	</mdb-modal>
 
 	<mdb-modal :show="about" @close="about = false">
 		<mdb-modal-header>
@@ -75,13 +57,13 @@
 			<h2>Hearts Of Bob (Vue)</h2>
 			<h3>Version</h3>
 			<ul>
-				<li>Alpha-0.2.01</li>
-				<li>Latest build:2020-04-25(Alpha-0.1.11)</li>
+				<li>Current Version:Alpha-0.2.03</li>
+				<li>Latest build:2020-04-25</li>
 			</ul>
 			<h3>Source Code</h3>
 			<ul>
 				<li>GitHub(latest): <a target="_blank" href="https://github.com/kuainx/HeartsOfBobVue">https://github.com/kuainx/HeartsOfBobVue</a></li>
-				<li>Build: <a target="_blank" href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
+				<li>Build(Alpha-0.1.11): <a target="_blank" href="http://demo.ekuai.tech/BobUGVue/">http://demo.ekuai.tech/BobUGVue/</a></li>
 			</ul>
 			<h3>Use</h3>
 			<ul>
@@ -113,18 +95,16 @@ export default {
 	data() {
 		return {
 			read: false,
-			readLoading: false,
 			write: false,
-			writeLoading: false,
 			about: false,
 			saveName: '',
-			key: -1,
+			listKey: -1,
 			saveList: []
 		}
 	},
 	watch: {
 		saveName() {
-			this.key = this.saveList.indexOf(this.saveName);
+			this.listKey = this.saveName2Index(this.saveName);
 		}
 	},
 	methods: {
@@ -147,72 +127,49 @@ export default {
 			this.$root.runData.esc = false;
 		},
 		readSave() {
-			this.readLoading = true;
 			let that = this;
-			if (this.existName(this.saveName)) {
+			if (this.saveName2Index(this.saveName) > -1) {
 				window.alertM('这将覆盖当前内存，且无法恢复！确定覆盖吗？', '警告', 'danger', {
+					noBtn: true,
 					onOk() {
 						HOBDB.get(that.saveName, function (e) {
 							window.gameData = e.data;
-							that.readCancel();
 						});
-					},
-					onCancel() {
-						that.readCancel();
 					}
 				});
 			} else {
-				window.alertM('存档' + that.saveName + '不存在', '错误', 'error', {
-					zIndex: 10100
-				});
-				this.readCancel();
+				window.alertM('存档（' + that.saveName + '）不存在', '错误', 'error');
 			}
 		},
 		writeSave() {
-			this.writeLoading = true;
-			if (this.existName(this.saveName)) {
+			if (this.saveName2Index(this.saveName) > -1) {
 				let that = this;
-				window.alertM('这将覆盖一个存档，且无法恢复！确认覆盖存档吗？', '警告', 'danger', {
+				window.alertM('这将覆盖一个存档（' + this.saveName + '），且无法恢复！确认覆盖存档吗？', '警告', 'danger', {
+					noBtn: true,
 					onOk() {
 						HOBDB.set(that.saveName, window.gameData);
 						that.refreshList();
-						that.writeCancel();
 					},
-					onCancel() {
-						that.writeCancel();
-					}
 				});
 			} else {
 				HOBDB.set(this.saveName, window.gameData);
 				this.refreshList();
-				this.writeCancel();
 			}
-		},
-		readCancel() {
-			this.readLoading = false;
-		},
-		writeCancel() {
-			this.writeLoading = false;
-		},
-		saveListClick(item) {
-			console.log(item)
-			this.saveName = item.key;
 		},
 		delSave(e) {
 			console.log(e);
-			e.stopPropagation();
-			let name = e.target.getAttribute("item");
+			let name = this.saveList[e].name;
 			let that = this;
-			window.alertM('这将删除一个存档（' + name + '），且无法恢复！确认删除存档（' + name + '）吗？', '警告', 'confirm', {
-				zIndex: 10100,
+			window.alertM('这将删除一个存档（' + name + '），且无法恢复！确认删除该存档吗？', '警告', 'warning', {
+				noBtn: true,
 				onOk() {
 					HOBDB.delete(name);
 					that.refreshList();
 				}
 			});
 		},
-		itemClick() {
-			this.saveName = this.saveList[this.key];
+		itemClick(e) {
+			this.saveName = this.saveList[e].name;
 		},
 		refreshList() {
 			let that = this;
@@ -224,13 +181,13 @@ export default {
 				that.saveList = e;
 			});
 		},
-		existName(name) {
+		saveName2Index(name) {
 			for (var i = 0; i < this.saveList.length; i++) {
 				if (this.saveList[i].name == name) {
-					return true;
+					return i;
 				}
 			}
-			return false;
+			return -1;
 		},
 		aboutClick() {
 			this.about = true;
@@ -247,7 +204,6 @@ export default {
 .del-btn {
 	float: right;
 	margin: 4px;
-
 }
 
 .times-line {

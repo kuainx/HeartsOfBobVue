@@ -2,9 +2,9 @@
 <div>
 	<mdb-list-group>
 		<mdb-btn-group v-for="(item, index) in dataList" :key="index">
-			<mdb-btn v-if="key===index" color="primary" class="listbtn" @click="itemClick(index)">{{item.name}}（{{item.timeText}}）</mdb-btn>
+			<mdb-btn v-if="thisListKey===index" color="primary" class="listbtn" @click="itemClick(index)">{{item.name}}（{{item.timeText}}）</mdb-btn>
 			<mdb-btn v-else outline="primary" darkWaves class="listbtn" @click="itemClick(index)">{{item.name}}（{{item.timeText}}）</mdb-btn>
-			<mdb-btn color="danger" class="times listbtn" @click="del(index)">
+			<mdb-btn color="danger" class="times listbtn" @click="delClick(index)">
 				<mdb-icon icon="times" />
 			</mdb-btn>
 		</mdb-btn-group>
@@ -15,25 +15,28 @@
 export default {
 	name: "",
 	model: {
-		prop: 'key',
+		prop: 'listKey',
 		event: 'change'
 	},
-	props: ['dataList', 'key'],
+	props: ['dataList', 'listKey'],
 	data: () => ({
-
+		thisListKey: -1
 	}),
 	methods: {
 		delClick(e) {
 			this.$emit('del', e);
 		},
 		itemClick(e) {
-			this.key = e;
+			this.thisListKey = e;
 			this.$emit('item', e);
 		}
 	},
 	watch: {
-		key() {
-			this.$emit('change', this.key);
+		thisListKey() {
+			this.$emit('change', this.thisListKey);
+		},
+		listKey() {
+			this.thisListKey = this.listKey;
 		}
 	}
 }

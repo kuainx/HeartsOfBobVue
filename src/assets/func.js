@@ -10,7 +10,7 @@ window.alertM = function(msg, title = '提示', type = 'info', assign = {}) {
             j.icon = 'times'
             break;
     }
-    if (assign.onCancel == undefined && assign.noText == undefined) {
+    if (assign.onCancel == undefined && assign.noText == undefined && assign.noBtn != true) {
         j.noText = '';
     }
     j = Object.assign(j, assign);
