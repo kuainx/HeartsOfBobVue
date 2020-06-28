@@ -1,21 +1,36 @@
 <template>
 <div>
+	<mdb-modal class="sideBarModal" size="lg" side position="left" fullHeight direction="left" :show="$root.runData.sideBar" @close="$root.runData.sideBar = false" removeBackdrop>
+		<mdb-modal-header>
+			<mdb-modal-title>管理</mdb-modal-title>
+		</mdb-modal-header>
+		<mdb-modal-body>
+			<mdb-container>
+				<mdb-row>
+					<mdb-col col="4"><img src="http://temp.im/150x200" alt="">
+						<h4 class="leaderName">Leader.name</h4>
+					</mdb-col>
+					<mdb-col col="8">
+						<mdb-row>
+							<div class="btn-group" role="group" style="width:100%;max-height:106px;">
+								<a-button type="button" class="btn btn-lg btn-outline-primary waves-effect" style="padding: 0;max-width:94px;"><img src="http://temp.im/90x90" alt="" width="90" height="90" /></a-button>
+								<a-button type="button" class="btn btn-lg btn-primary" style="font-size: large;letter-spacing: 0.2em;" data-toggle="modal" data-target="#modalFocus">整风运动</a-button>
+							</div>
+						</mdb-row>
+					</mdb-col>
+				</mdb-row>
+				<mdb-row>
+					<mdb-col>1 of 3</mdb-col>
+					<mdb-col col="5">2 of 3 (wider)</mdb-col>
+					<mdb-col>3 of 3</mdb-col>
+				</mdb-row>
+			</mdb-container>
+		</mdb-modal-body>
+
+	</mdb-modal>
 	<a-modal v-model="$root.runData.sideBar" title="管理" :footer="null" :mask="false" :maskClosable="false">
 		<div class="container">
-			<a-row>
-				<a-col :span="8">
-					<img src="http://temp.im/150x200" alt="">
-					<h4 class="leaderName">Leader.name</h4>
-				</a-col>
-				<a-col :span="16">
-					<a-row>
-						<div class="btn-group" role="group" style="width:100%;max-height:106px;">
-							<a-button type="button" class="btn btn-lg btn-outline-primary waves-effect" style="padding: 0;max-width:94px;"><img src="http://temp.im/90x90" alt="" width="90" height="90" /></a-button>
-							<a-button type="button" class="btn btn-lg btn-primary" style="font-size: large;letter-spacing: 0.2em;" data-toggle="modal" data-target="#modalFocus">整风运动</a-button>
-						</div>
-					</a-row>
-				</a-col>
-			</a-row>
+
 			<!-- <div class="row">
 				<div class="col-md-4" style="max-width: 180px;padding-top: 6px;">
 					<div class="card">
@@ -122,5 +137,11 @@ export default {
 <style scoped>
 .leaderName {
 	text-align: center;
+}
+</style>
+<style>
+.sideBarModal>.modal-dialog {
+	width: 620px !important;
+	min-width: 620px !important;
 }
 </style>

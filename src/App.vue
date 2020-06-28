@@ -3,6 +3,7 @@
 	<Menu></Menu>
 	<TopBar></TopBar>
 	<SideBar></SideBar>
+	<mdb-btn color="primary" @click="$root.runData.sideBar=true">管理</mdb-btn>
 </div>
 </template>
 
