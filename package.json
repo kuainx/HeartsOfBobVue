@@ -9,6 +9,7 @@
     "start": "vue-cli-service serve --open"
   },
   "dependencies": {
+    "@antv/g2": "^4.0.12",
     "@antv/g6": "^3.3.6",
     "core-js": "^3.4.4",
     "google-fonts-webpack-plugin": "^0.4.4",
