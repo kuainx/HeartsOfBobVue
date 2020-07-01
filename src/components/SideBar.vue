@@ -37,8 +37,8 @@
 							<mdb-btn color="primary" style="font-size: medium;letter-spacing: 0.2em;">文科主义<br />无选举</mdb-btn>
 						</mdb-btn-group>
 					</mdb-col>
-					<mdb-col col="2">
-						<div id="partyChart"></div>
+					<mdb-col col="2" style="padding:0;">
+						<PartyPie :dat="partyPercent"></PartyPie>
 					</mdb-col>
 					<mdb-col col="4">3 of 3</mdb-col>
 				</mdb-row>
@@ -111,11 +111,15 @@
 </div>
 </template>
 <script>
+import PartyPie from './SideBar/PartyPie.vue';
 export default {
 	name: "SideBar",
 	data: () => ({
-
-	})
+		partyPercent: [6000, 3000, 301, 699]
+	}),
+	components: {
+		PartyPie
+	}
 }
 </script>
 <style scoped>
