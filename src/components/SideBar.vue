@@ -40,36 +40,40 @@
 					<mdb-col col="2" style="padding:0;">
 						<PartyPie :dat="partyPercent"></PartyPie>
 					</mdb-col>
-					<mdb-col col="4">3 of 3</mdb-col>
+					<mdb-col col="4">
+						<mdb-list-group>
+							<mdb-popover trigger="hover" :options="{placement: 'right'}">
+								<span slot="header">popover on bottom</span>
+								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
+								<mdb-list-group-item slot="reference" :action="true" tag="a">文科主义<mdb-badge color="primary" pill>60</mdb-badge>
+								</mdb-list-group-item>
+							</mdb-popover>
+							<mdb-popover trigger="hover" :options="{placement: 'right'}">
+								<span slot="header">popover on bottom</span>
+								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
+								<mdb-list-group-item slot="reference" :action="true" tag="a">理科主义<mdb-badge color="danger" pill>30</mdb-badge>
+								</mdb-list-group-item>
+							</mdb-popover>
+							<mdb-popover trigger="hover" :options="{placement: 'right'}">
+								<span slot="header">popover on bottom</span>
+								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
+								<mdb-list-group-item slot="reference" :action="true" tag="a">中立主义<mdb-badge color="warning" pill>3</mdb-badge>
+								</mdb-list-group-item>
+							</mdb-popover>
+							<mdb-popover trigger="hover" :options="{placement: 'right'}">
+								<span slot="header">popover on bottom</span>
+								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
+								<mdb-list-group-item slot="reference" :action="true" tag="a">自由主义<mdb-badge color="success" pill>7</mdb-badge>
+								</mdb-list-group-item>
+							</mdb-popover>
+						</mdb-list-group>
+					</mdb-col>
 				</mdb-row>
 			</mdb-container>
 		</mdb-modal-body>
 	</mdb-modal>
 	<a-modal v-model="$root.runData.sideBar" title="管理" :footer="null" :mask="false" :maskClosable="false">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6" style="padding: 0 8px;">
-					<div class="btn-group" role="group" style="max-height:86px;width: 100%;">
-						<button type="button" class="btn btn-lg btn-outline-primary waves-effect" style="padding: 0;max-width:74px;"><img src="http://temp.im/70x70" alt="" width="70" height="70" /></button>
-						<button type="button" class="btn btn-lg btn-primary" style="letter-spacing: 0.2em;">文科主义<br />无选举</button>
-					</div>
-				</div>
-				<div class="col-md-2" style="padding:0;z-index: 100;">
-					<canvas id="partySupport" style="height:86px;width:146px;"></canvas>
-				</div>
-				<div class="col-md-4" style="padding:0">
-					<div class="list-group party-group">
-						<a class="list-group-item list-group-item-action" role="button" data-toggle="popover" data-partyid="0" data-placement="top" title="理科主义支持率变化" data-content="<div id='partyContainer'></div>">理科主义&emsp;<span
-								class="badge badge-primary badge-pill">50</span></a>
-						<a class="list-group-item list-group-item-action group-active" role="button" data-toggle="popover" data-partyid="1" data-placement="top" title="文科主义支持率变化" data-content="<div id='partyContainer'></div>">文科主义&emsp;<span
-								class="badge badge-danger badge-pill">32</span></a>
-						<a class="list-group-item list-group-item-action" role="button" data-toggle="popover" data-partyid="2" data-placement="top" title="体育主义支持率变化" data-content="<div id='partyContainer'></div>">体育主义&emsp;<span
-								class="badge badge-warning badge-pill">10</span></a>
-						<a class="list-group-item list-group-item-action" role="button" data-toggle="popover" data-partyid="3" data-placement="top" title="综合主义支持率变化" data-content="<div id='partyContainer'></div>">综合主义&emsp;<span
-								class="badge badge-success badge-pill">7</span></a>
-					</div>
-				</div>
-			</div>
 			<div class="row">
 				<div class="card" style="width: 100%;">
 					<div class="card-body" style="padding: 4px;margin: 2px;width: 100%;">

@@ -3,6 +3,7 @@
 </template>
 <script>
 import {
+	registerTheme,
 	Chart
 } from '@antv/g2';
 export default {
@@ -38,6 +39,10 @@ export default {
 		chart.interaction('element-active');
 		chart.interaction('element-highlight');
 		chart.data(this.chartDat);
+		registerTheme('partyTheme', {
+			colors10: ["#4285f4", "#ff3547", "#fb3", "#00c851"]
+		});
+		chart.theme('partyTheme');
 		chart
 			.interval()
 			.adjust('stack')
