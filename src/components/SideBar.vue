@@ -7,7 +7,8 @@
 		<mdb-modal-body>
 			<mdb-container>
 				<mdb-row>
-					<mdb-col col="4" style="text-align:center;"><img src="http://temp.im/150x200" alt="">
+					<mdb-col col="4" style="text-align:center;">
+						<img src="http://temp.im/150x200" alt="">
 						<h4 class="leaderName">Leader.name</h4>
 					</mdb-col>
 					<mdb-col col="8">
@@ -42,28 +43,11 @@
 					</mdb-col>
 					<mdb-col col="4">
 						<mdb-list-group>
-							<mdb-popover trigger="hover" :options="{placement: 'right'}">
-								<span slot="header">popover on bottom</span>
+							<mdb-popover v-for="(item,index) in partyRender" :key="item.key" trigger="hover" :options="{placement: 'right'}">
+								<span slot="header">{{item.name}}支持率变化</span>
 								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
-								<mdb-list-group-item slot="reference" :action="true" tag="a">文科主义<mdb-badge color="primary" pill>60</mdb-badge>
-								</mdb-list-group-item>
-							</mdb-popover>
-							<mdb-popover trigger="hover" :options="{placement: 'right'}">
-								<span slot="header">popover on bottom</span>
-								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
-								<mdb-list-group-item slot="reference" :action="true" tag="a">理科主义<mdb-badge color="danger" pill>30</mdb-badge>
-								</mdb-list-group-item>
-							</mdb-popover>
-							<mdb-popover trigger="hover" :options="{placement: 'right'}">
-								<span slot="header">popover on bottom</span>
-								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
-								<mdb-list-group-item slot="reference" :action="true" tag="a">中立主义<mdb-badge color="warning" pill>3</mdb-badge>
-								</mdb-list-group-item>
-							</mdb-popover>
-							<mdb-popover trigger="hover" :options="{placement: 'right'}">
-								<span slot="header">popover on bottom</span>
-								<span slot="body">Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</span>
-								<mdb-list-group-item slot="reference" :action="true" tag="a">自由主义<mdb-badge color="success" pill>7</mdb-badge>
+								<mdb-list-group-item class="partyItem" slot="reference" :class="[partyActive === index ? 'p-active' : '']" :action="true" tag="a">{{item.name}}
+									<mdb-badge :color="item.color" pill>{{Math.round(partyPercent[index]/100)}}</mdb-badge>
 								</mdb-list-group-item>
 							</mdb-popover>
 						</mdb-list-group>
@@ -119,7 +103,21 @@ import PartyPie from './SideBar/PartyPie.vue';
 export default {
 	name: "SideBar",
 	data: () => ({
-		partyPercent: [6000, 3000, 301, 699]
+		partyPercent: [6000, 3000, 301, 699],
+		partyActive: 0,
+		partyRender: [{
+			name: '文科主义',
+			color: 'primary'
+		}, {
+			name: '理科主义',
+			color: 'danger'
+		}, {
+			name: '中立主义',
+			color: 'warning'
+		}, {
+			name: '自由主义',
+			color: 'success'
+		}]
 	}),
 	components: {
 		PartyPie
@@ -129,6 +127,16 @@ export default {
 <style scoped>
 .leaderName {
 	text-align: center;
+}
+
+.partyItem {
+	height: 21.5px;
+	padding: 0 15px;
+	font-size: small;
+}
+
+.partyItem.p-active {
+	background: linear-gradient(to right, rgba(236, 172, 12, 0.75), rgba(236, 172, 12, 0.25));
 }
 </style>
 <style>
