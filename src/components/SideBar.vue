@@ -53,49 +53,41 @@
 						</mdb-list-group>
 					</mdb-col>
 				</mdb-row>
+				<mdb-row style="margin: 15px 5px;">
+					<mdb-card class="iconCard">
+						<mdb-card-header class="iconCardHead" color="primary-color">政策和班委</mdb-card-header>
+						<mdb-card-body class="iconCardBody">
+							<mdb-card-text>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+							</mdb-card-text>
+						</mdb-card-body>
+					</mdb-card>
+					<mdb-card class="iconCard">
+						<mdb-card-header class="iconCardHead" color="primary-color">课代表</mdb-card-header>
+						<mdb-card-body class="iconCardBody">
+							<mdb-card-text>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+							</mdb-card-text>
+						</mdb-card-body>
+					</mdb-card>
+					<mdb-card class="iconCard">
+						<mdb-card-header class="iconCardHead" color="primary-color">学习和资料</mdb-card-header>
+						<mdb-card-body class="iconCardBody">
+							<mdb-card-text>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+								<mdb-btn class="iconBtn" outline="primary" darkWaves rounded><img src="http://temp.im/60x60" alt="" width="60" height="60" /></mdb-btn>
+							</mdb-card-text>
+						</mdb-card-body>
+					</mdb-card>
+				</mdb-row>
 			</mdb-container>
 		</mdb-modal-body>
 	</mdb-modal>
-	<a-modal v-model="$root.runData.sideBar" title="管理" :footer="null" :mask="false" :maskClosable="false">
-		<div class="container">
-			<div class="row">
-				<div class="card" style="width: 100%;">
-					<div class="card-body" style="padding: 4px;margin: 2px;width: 100%;">
-						<div class="badge badge-primary text-wrap card-title" style="margin: 6px;letter-spacing: 0.25em;font-size: medium;">政策和班委</div>
-						<div class="card-text">
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card" style="width: 100%;">
-					<div class="card-body" style="padding: 4px;margin: 2px;width: 100%;">
-						<div class="badge badge-primary text-wrap card-title" style="margin: 6px;letter-spacing: 0.25em;font-size: medium;">学习和资料</div>
-						<div class="card-text">
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="card" style="width: 100%;">
-					<div class="card-body" style="padding: 4px;margin: 2px;width: 100%;">
-						<div class="badge badge-primary text-wrap card-title" style="margin: 6px;letter-spacing: 0.25em;font-size: medium;">课代表</div>
-						<div class="card-text">
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-							<button type="button" class="btn btn-lg btn-rounded btn-outline-primary waves-effect" style="padding: 0;"><img src="http://temp.im/60x60" alt="" width="60" height="60" /></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</a-modal>
 </div>
 </template>
 <script>
@@ -137,6 +129,23 @@ export default {
 
 .partyItem.p-active {
 	background: linear-gradient(to right, rgba(236, 172, 12, 0.75), rgba(236, 172, 12, 0.25));
+}
+
+.iconBtn {
+	padding: 0 !important;
+}
+
+.iconCard {
+	width: 100%;
+}
+
+.iconCardHead {
+	padding: 5px 10px;
+	letter-spacing: 0.25em;
+}
+
+.iconCardBody {
+	padding: 5px;
 }
 </style>
 <style>
