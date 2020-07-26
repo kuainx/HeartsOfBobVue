@@ -9,23 +9,24 @@
     "start": "vue-cli-service serve --open"
   },
   "dependencies": {
-    "@antv/g2": "^4.0.12",
-    "@antv/g6": "^3.3.6",
-    "core-js": "^3.4.4",
+    "@antv/g2": "^4.0.13",
+    "@antv/g6": "^3.5.12",
+    "core-js": "^3.6.5",
     "google-fonts-webpack-plugin": "^0.4.4",
     "mdbvue": "./mdb/mdbvue/mdbvue-6.7.1.tgz",
     "vue": "^2.6.10",
-    "webpack": "^4.41.5"
+    "vue-draggable-resizable-gorkys": "^2.4.3",
+    "webpack": "^4.44.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
     "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint": "^7.5.0",
+    "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.9.0",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^9.0.2",
     "vue-cli-plugin-mdb": "~2.1.0",
     "vue-template-compiler": "^2.6.10"
   },
