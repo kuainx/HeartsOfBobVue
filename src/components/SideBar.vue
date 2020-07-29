@@ -1,6 +1,6 @@
 <template>
 <div>
-	<mdb-modal class="sideBarModal" size="lg" side position="left" fullHeight direction="left" :show="$root.runData.sideBar" @close="$root.runData.sideBar = false" removeBackdrop>
+	<mdb-modal class="sideBarModal" size="lg" side position="left" fullHeight direction="left" :show="$root.runData.sideBar" @close="$root.runData.sideBar = false" removeBackdrop scrollable>
 		<mdb-modal-header>
 			<mdb-modal-title>管理</mdb-modal-title>
 		</mdb-modal-header>
@@ -15,7 +15,7 @@
 						<mdb-row>
 							<mdb-btn-group style="width:100%;max-height:106px;">
 								<mdb-btn darkWaves outline="primary" style="padding: 0;max-width:94px;"><img src="http://temp.im/90x90" alt="" width="90" height="90" /></mdb-btn>
-								<mdb-btn color="primary" style="font-size: large;letter-spacing: 0.4em;">整风运动</mdb-btn>
+								<mdb-btn color="primary" style="font-size: large;letter-spacing: 0.4em;" @click="$root.runData.focus = true">整风运动</mdb-btn>
 							</mdb-btn-group>
 						</mdb-row>
 						<mdb-row>
@@ -88,10 +88,12 @@
 			</mdb-container>
 		</mdb-modal-body>
 	</mdb-modal>
+	<Focus></Focus>
 </div>
 </template>
 <script>
 import PartyPie from './SideBar/PartyPie.vue';
+import Focus from './SideBar/Focus.vue'
 export default {
 	name: "SideBar",
 	data: () => ({
@@ -112,7 +114,8 @@ export default {
 		}]
 	}),
 	components: {
-		PartyPie
+		PartyPie,
+		Focus
 	}
 }
 </script>
@@ -152,5 +155,9 @@ export default {
 .sideBarModal>.modal-dialog {
 	width: 620px !important;
 	min-width: 620px !important;
+}
+
+.sideBarModal>.modal-dialog>.modal-content {
+	max-height: 100%;
 }
 </style>

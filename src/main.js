@@ -28,7 +28,8 @@ window.vm = new Vue({
             speed: 1,
             pause: true,
             esc: true,
-            sideBar: false
+            sideBar: false,
+            focus: false
         }
     }
 }).$mount('#app')
