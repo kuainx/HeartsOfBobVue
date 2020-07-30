@@ -9031,7 +9031,7 @@ vue2-touch-events@^2.1.0:
   resolved "https://registry.npm.taobao.org/vue2-touch-events/download/vue2-touch-events-2.2.1.tgz#fe29846a3dfc44e166f198077fa8edc898465242"
   integrity sha1-/imEaj38ROFm8ZgHf6jtyJhGUkI=
 
-vue@^2.6.10, vue@^2.6.11:
+vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha1-dllNh31LEiNEBuhONSdcbVFBJcU=
