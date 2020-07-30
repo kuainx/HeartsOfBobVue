@@ -13,6 +13,7 @@
     "@antv/g6": "^3.5.12",
     "core-js": "^3.6.5",
     "google-fonts-webpack-plugin": "^0.4.4",
+    "lodash": "^4.17.19",
     "mdbvue": "./mdb/mdbvue/mdbvue-6.7.1.tgz",
     "vue": "^2.6.10",
     "vue-draggable-resizable-gorkys": "^2.4.3",
