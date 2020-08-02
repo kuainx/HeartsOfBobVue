@@ -9,7 +9,7 @@ export default {
 
 	}),
 	mounted() {
-
+		this.init();
 	},
 	methods: {
 		init() {
@@ -241,10 +241,10 @@ export default {
 				'single-node',
 			);
 
-			const width = document.getElementById('container').scrollWidth;
-			const height = document.getElementById('container').scrollHeight || 500;
+			const width = document.getElementById('FocusGraph').scrollWidth;
+			const height = document.getElementById('FocusGraph').scrollHeight || 500;
 			const graph = new G6.Graph({
-				container: 'container',
+				container: 'FocusGraph',
 				width,
 				height,
 				layout: {
