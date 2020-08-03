@@ -17,13 +17,18 @@ import * as mdbvue from 'mdbvue'
 for (const component in mdbvue) {
     Vue.component(component, mdbvue[component])
 }
+import {
+    focusData
+} from './assets/focus/focusData.js'
 window.gameData = GameData;
+window.assetsData.focus = focusData;
 Vue.config.productionTip = false;
 
 window.vm = new Vue({
     render: h => h(App),
     data: {
         gameData: window.gameData,
+        assetsData: window.assetsData,
         runData: {
             speed: 1,
             pause: true,

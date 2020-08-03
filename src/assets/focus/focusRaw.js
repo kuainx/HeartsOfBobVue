@@ -1,4 +1,4 @@
-export let rawFocus = [{
+export const rawFocus = [{
     id: "0",
     label: "建立班级",
     turn: 1,
