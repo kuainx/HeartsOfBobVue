@@ -2,14 +2,14 @@ import {
     rawFocus
 } from './focusRaw.js'
 let connections = [];
-rawFocus.foreach((val) => {
-    val.require.foreach((index) => {
+for (let val of rawFocus) {
+    for (let index of val.require) {
         connections.push({
-            source: val.id,
-            target: index,
+            source: String(index),
+            target: val.id,
         })
-    })
-})
+    }
+}
 export const focusData = {
     nodes: rawFocus,
     edges: connections

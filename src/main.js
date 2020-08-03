@@ -21,7 +21,9 @@ import {
     focusData
 } from './assets/focus/focusData.js'
 window.gameData = GameData;
-window.assetsData.focus = focusData;
+window.assetsData = {
+    focus: focusData
+}
 Vue.config.productionTip = false;
 
 window.vm = new Vue({
